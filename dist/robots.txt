@@ -1,0 +1,23 @@
+# Robots.txt for Crotto Belvedere
+# https://www.crottobelvedere.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.crottobelvedere.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /api/
+Disallow: /admin/
+
+# Allow all crawlers for main content
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl-delay for less aggressive crawlers
+User-agent: *
+Crawl-delay: 1

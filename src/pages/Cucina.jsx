@@ -1,173 +1,196 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import PageHero from '../components/PageHero'
 
 // Import images
 import heroImg from '../assets/cibo/cibo-2.webp'
 import cibo1 from '../assets/cibo/cibo-1.webp'
-import cibo5 from '../assets/cibo/cibo-5.webp'
 import cibo3 from '../assets/cibo/cibo-3.webp'
 import cibo4 from '../assets/cibo/cibo-4.webp'
+import cibo5 from '../assets/cibo/cibo-5.webp'
+import cibo6 from '../assets/cibo/cibo-6.webp'
+import cibo7 from '../assets/cibo/cibo-7.webp'
 
 export default function Cucina() {
+  const parallaxRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: parallaxRef,
+    offset: ["start end", "end start"]
+  })
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"])
+
   const categories = [
     {
       name: 'Antipasti',
-      description: 'Un viaggio nei sapori del territorio',
       dishes: [
-        { name: 'Sciatt', description: 'Frittelle di grano saraceno ripiene di formaggio fuso, croccanti fuori e filanti dentro' },
-        { name: 'Bresaola della Valtellina IGP', description: 'Affettata finemente, servita con rucola, grana e un filo d\'olio extravergine' },
-        { name: 'Tagliere Valtellinese', description: 'Selezione di salumi e formaggi del territorio: bresaola, coppa, pancetta, bitto e casera' },
+        { name: 'Sciatt', description: 'Frittelle di grano saraceno ripiene di formaggio fuso' },
+        { name: 'Bresaola della Valtellina IGP', description: 'Con rucola, grana e olio extravergine' },
+        { name: 'Tagliere Valtellinese', description: 'Selezione di salumi e formaggi del territorio' },
         { name: 'Carpaccio di Bresaola', description: 'Con scaglie di formaggio stagionato e noci' }
       ]
     },
     {
-      name: 'Primi Piatti',
-      description: 'Le ricette della tradizione valtellinese',
+      name: 'Primi',
       dishes: [
-        { name: 'Pizzoccheri della Valtellina', description: 'Il piatto simbolo: pasta di grano saraceno con verze, patate, burro fuso, casera e grana' },
-        { name: 'Polenta Taragna', description: 'Polenta di mais e grano saraceno con abbondante formaggio fuso' },
-        { name: 'Polenta Uncia', description: 'Polenta condita con burro, aglio e formaggio locale' },
-        { name: 'Gnocchi di Patate', description: 'Conditi con burro e salvia o ragù di carne' }
+        { name: 'Pizzoccheri della Valtellina', description: 'Pasta di grano saraceno con verze, patate e formaggio' },
+        { name: 'Polenta Taragna', description: 'Con abbondante formaggio fuso' },
+        { name: 'Polenta Uncia', description: 'Condita con burro, aglio e formaggio locale' },
+        { name: 'Gnocchi di Patate', description: 'Con burro e salvia o ragù di carne' }
       ]
     },
     {
-      name: 'Secondi Piatti',
-      description: 'Carni e piatti sostanziosi della montagna',
+      name: 'Secondi',
       dishes: [
-        { name: 'Brasato al Vino Rosso', description: 'Carne di manzo brasata lentamente nel vino rosso della Valtellina' },
+        { name: 'Brasato al Vino Rosso', description: 'Carne di manzo brasata nel vino della Valtellina' },
         { name: 'Costine di Maiale', description: 'Cotte lentamente fino a diventare tenerissime' },
-        { name: 'Spezzatino con Polenta', description: 'Carne di manzo in umido accompagnata da polenta fumante' },
-        { name: 'Selvaggina di Stagione', description: 'Quando disponibile, preparata secondo ricetta tradizionale' }
+        { name: 'Spezzatino con Polenta', description: 'Carne di manzo in umido con polenta fumante' },
+        { name: 'Selvaggina di Stagione', description: 'Preparata secondo ricetta tradizionale' }
       ]
     },
     {
       name: 'Dolci',
-      description: 'Per concludere in dolcezza',
       dishes: [
-        { name: 'Bisciola', description: 'Il dolce tipico valtellinese con frutta secca, noci e fichi' },
+        { name: 'Bisciola', description: 'Dolce tipico con frutta secca, noci e fichi' },
         { name: 'Torta di Grano Saraceno', description: 'Con marmellata di mirtilli rossi' },
-        { name: 'Dolci della Casa', description: 'Preparazioni artigianali che variano secondo la stagione' }
+        { name: 'Dolci della Casa', description: 'Preparazioni artigianali della stagione' }
       ]
     }
   ]
 
   return (
-    <>
+    <div className="grain bg-dark">
       <PageHero
         title="La Cucina"
-        subtitle="I sapori della tradizione"
+        subtitle="Ricette tramandate di generazione in generazione, ingredienti del territorio, passione artigianale."
+        eyebrow="I sapori della tradizione"
         image={heroImg}
       />
 
-      {/* Introduction */}
-      <section className="section-padding bg-cream">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      {/* Introduction - Asymmetric */}
+      <section className="py-32 lg:py-48 bg-dark relative overflow-hidden">
+        <div className="number-marker -right-10 top-20 text-cream/5">01</div>
+
+        <div className="container-wide">
+          <div className="grid-asymmetric items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <p className="text-label text-terracotta mb-4">La nostra filosofia</p>
-              <h2 className="heading-lg text-stone mb-6">
-                Cucina di territorio
+              <p className="text-eyebrow text-gold mb-8">La nostra filosofia</p>
+              <h2 className="text-display text-cream mb-10">
+                Cucina di<br />
+                <span className="italic text-cream/60">territorio</span>
               </h2>
-              <div className="divider mb-8" />
-              <div className="space-y-6 text-body-lg text-stone/70">
+              <div className="w-16 h-px bg-gradient-to-r from-gold to-transparent mb-10" />
+              <div className="space-y-6 text-body-lg text-cream/50">
                 <p>
                   La cucina del Crotto Belvedere è un omaggio alla tradizione gastronomica della
-                  Valtellina e della Valchiavenna. Ogni piatto racconta la storia di questa terra,
-                  dei suoi contadini, dei suoi pastori e delle famiglie che per generazioni hanno
-                  custodito ricette e sapori.
+                  Valtellina. Ogni piatto racconta la storia di questa terra, dei suoi contadini,
+                  dei suoi pastori e delle famiglie che per generazioni hanno custodito ricette e sapori.
                 </p>
                 <p>
                   Utilizziamo ingredienti locali, seguiamo le stagioni e prepariamo tutto
-                  con la cura e la passione di chi ama il proprio lavoro.
+                  con la cura di chi ama il proprio lavoro.
                 </p>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 1, delay: 0.2 }}
               className="grid grid-cols-2 gap-4"
             >
-              <img src={cibo1} alt="Polenta" className="w-full aspect-[3/4] object-cover" />
-              <img src={cibo5} alt="Costine" className="w-full aspect-[3/4] object-cover mt-8" />
+              <div className="img-cinematic aspect-[3/4]">
+                <img src={cibo1} alt="Polenta" />
+              </div>
+              <div className="img-cinematic aspect-[3/4] mt-12">
+                <img src={cibo5} alt="Costine" />
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Principles */}
-      <section className="section-padding bg-cream-dark">
-        <div className="container-custom">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { title: 'Ingredienti Locali', desc: 'Prodotti del territorio, selezionati da produttori locali' },
-              { title: 'Ricette Tradizionali', desc: 'Tramandate di generazione in generazione' },
-              { title: 'Preparazioni Artigianali', desc: 'Ogni piatto preparato con cura, come una volta' },
-              { title: 'Stagionalità', desc: 'Seguiamo le stagioni e i loro frutti migliori' },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-white p-8"
-              >
-                <span className="text-label text-terracotta mb-4 block">0{i + 1}</span>
-                <h3 className="heading-sm text-stone mb-3">{item.title}</h3>
-                <p className="text-stone/60 text-body">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+      {/* Principles - Horizontal scroll */}
+      <section className="py-20 bg-black overflow-hidden">
+        <div className="container-wide mb-10">
+          <p className="text-eyebrow text-gold">I nostri principi</p>
+        </div>
+
+        <div className="scroll-horizontal px-8 lg:px-16 pb-8">
+          {[
+            { num: '01', title: 'Ingredienti Locali', desc: 'Prodotti del territorio, selezionati da produttori della Valchiavenna' },
+            { num: '02', title: 'Ricette Tradizionali', desc: 'Tramandate di generazione in generazione, senza compromessi' },
+            { num: '03', title: 'Preparazioni Artigianali', desc: 'Ogni piatto preparato con cura e attenzione ai dettagli' },
+            { num: '04', title: 'Stagionalità', desc: 'Seguiamo il ritmo delle stagioni e i loro frutti migliori' },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="w-[80vw] md:w-[40vw] lg:w-[25vw] bg-warm p-10 lg:p-12"
+            >
+              <span className="text-gold text-eyebrow">{item.num}</span>
+              <h3 className="text-title text-cream mt-4 mb-4">{item.title}</h3>
+              <p className="text-cream/50 font-light">{item.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
       {/* Menu Sections */}
-      <section className="section-padding bg-cream">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <p className="text-label text-terracotta mb-4">I nostri piatti</p>
-            <h2 className="heading-lg text-stone">Dal Menu</h2>
-          </div>
+      <section className="py-32 lg:py-48 bg-dark">
+        <div className="container-wide">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <p className="text-eyebrow text-gold mb-6">I nostri piatti</p>
+            <h2 className="text-display text-cream">Dal Menu</h2>
+          </motion.div>
 
-          <div className="space-y-20">
+          <div className="space-y-24">
             {categories.map((category, catIndex) => (
               <motion.div
                 key={catIndex}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8 }}
               >
-                <div className="flex items-center gap-6 mb-10">
-                  <div className="h-px flex-grow bg-stone/10" />
-                  <div className="text-center">
-                    <h3 className="heading-md text-stone">{category.name}</h3>
-                    <p className="text-small text-stone/50 mt-1">{category.description}</p>
+                <div className="flex items-center gap-8 mb-12">
+                  <span className="text-gold/30 font-serif text-6xl lg:text-8xl font-light">
+                    {String(catIndex + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 className="text-title text-cream">{category.name}</h3>
                   </div>
-                  <div className="h-px flex-grow bg-stone/10" />
+                  <div className="h-px flex-grow bg-cream/10" />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6 lg:gap-8 lg:pl-24">
                   {category.dishes.map((dish, dishIndex) => (
                     <motion.div
                       key={dishIndex}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: dishIndex * 0.05 }}
-                      className="bg-white p-8 hover:shadow-lg transition-all duration-300"
+                      transition={{ duration: 0.5, delay: dishIndex * 0.05 }}
+                      className="group border-b border-cream/10 pb-6"
                     >
-                      <h4 className="heading-sm text-stone mb-3">{dish.name}</h4>
-                      <p className="text-stone/60 leading-relaxed">{dish.description}</p>
+                      <h4 className="text-xl text-cream group-hover:text-gold transition-colors mb-2 font-serif">
+                        {dish.name}
+                      </h4>
+                      <p className="text-cream font-light">{dish.description}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -175,80 +198,103 @@ export default function Cucina() {
             ))}
           </div>
 
-          <p className="text-center text-stone/50 italic mt-16">
-            Il menu completo è disponibile presso il ristorante e può variare in base alla stagionalità degli ingredienti.
-          </p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-cream italic mt-20"
+          >
+            Il menu può variare in base alla stagionalità degli ingredienti
+          </motion.p>
         </div>
       </section>
 
-      {/* Signature Dishes */}
-      <section className="section-padding bg-stone text-white">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-label text-terracotta mb-4">Il nostro cavallo di battaglia</p>
-              <h2 className="heading-lg mb-6">I Pizzoccheri</h2>
-              <div className="divider mb-8" />
-              <div className="space-y-6 text-white/70 text-body-lg leading-relaxed">
-                <p>
-                  Il piatto simbolo della Valtellina, preparato secondo la ricetta tradizionale
-                  dell'Accademia del Pizzocchero. Pasta fresca di grano saraceno cotta insieme
-                  a verze e patate, poi condita con abbondante burro fuso, formaggio casera
-                  e grana.
-                </p>
-                <p>
-                  Al Crotto Belvedere i pizzoccheri sono preparati con farina di grano saraceno
-                  macinata a pietra e formaggi provenienti da produttori locali.
-                </p>
-              </div>
-            </motion.div>
+      {/* Signature Dish - Full width cinematic */}
+      <section ref={parallaxRef} className="relative min-h-screen bg-black overflow-hidden">
+        <motion.div style={{ y }} className="absolute inset-0">
+          <img src={cibo3} alt="Pizzoccheri" className="w-full h-full object-cover opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+        </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="grid grid-cols-2 gap-4"
-            >
-              <img src={cibo3} alt="Piatto" className="w-full aspect-square object-cover" />
-              <img src={cibo4} alt="Piatto" className="w-full aspect-square object-cover" />
-            </motion.div>
+        <div className="relative z-10 min-h-screen flex items-center">
+          <div className="container-wide py-32">
+            <div className="max-w-2xl">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+              >
+                <p className="text-eyebrow text-gold mb-8">Il nostro cavallo di battaglia</p>
+                <h2 className="text-hero text-cream mb-8">
+                  I Pizzoccheri
+                </h2>
+                <div className="w-16 h-px bg-gradient-to-r from-gold to-transparent mb-10" />
+                <div className="space-y-6 text-body-lg text-cream/60 leading-relaxed">
+                  <p>
+                    Il piatto simbolo della Valtellina, preparato secondo la ricetta tradizionale
+                    dell'Accademia del Pizzocchero. Pasta fresca di grano saraceno cotta insieme
+                    a verze e patate, condita con abbondante burro fuso e formaggio casera.
+                  </p>
+                  <p>
+                    Al Crotto Belvedere i pizzoccheri sono preparati con farina di grano saraceno
+                    macinata a pietra e formaggi provenienti da produttori locali.
+                  </p>
+                </div>
+                <Link to="/contatti" className="btn-solid mt-12 inline-flex">
+                  Prenota un tavolo
+                </Link>
+              </motion.div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Gallery strip */}
+      <section className="bg-dark py-8">
+        <div className="flex gap-4 overflow-hidden">
+          {[cibo4, cibo6, cibo7, cibo1].map((img, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="w-[40vw] lg:w-[25vw] flex-shrink-0 aspect-square img-cinematic"
+            >
+              <img src={img} alt="" />
+            </motion.div>
+          ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-cream">
-        <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="heading-lg text-stone mb-6">Vieni a trovarci</h2>
-              <p className="text-body-lg text-stone/70 mb-10">
-                Prenota il tuo tavolo e vieni a gustare i sapori della nostra cucina.
-                Ti aspettiamo al Crotto Belvedere.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:+390343335889" className="btn-primary">
-                  Prenota ora
-                </a>
-                <Link to="/cantina" className="btn-secondary">
-                  Scopri la cantina
-                </Link>
-              </div>
-            </motion.div>
-          </div>
+      <section className="py-32 lg:py-48 bg-warm">
+        <div className="container-narrow text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-display text-cream mb-8">
+              Vieni a<br />
+              <span className="italic text-cream/60">trovarci</span>
+            </h2>
+            <p className="text-body-lg text-cream/50 mb-12 max-w-lg mx-auto">
+              Prenota il tuo tavolo e vieni a gustare i sapori della nostra cucina.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <a href="tel:+390343335889" className="btn-solid">
+                Prenota ora
+              </a>
+              <Link to="/cantina" className="btn-outline">
+                Scopri la cantina
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

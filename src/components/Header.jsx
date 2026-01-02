@@ -9,7 +9,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 100)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
@@ -38,54 +38,51 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           isScrolled || !isHomePage
-            ? 'bg-cream/95 backdrop-blur-md py-4'
-            : 'bg-transparent py-6'
+            ? 'py-4'
+            : 'py-6 lg:py-8'
         }`}
         style={{
-          boxShadow: isScrolled || !isHomePage ? '0 1px 0 rgba(44, 40, 37, 0.08)' : 'none'
+          background: isScrolled || !isHomePage
+            ? 'rgba(10, 10, 10, 0.95)'
+            : 'linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%)',
+          backdropFilter: isScrolled || !isHomePage ? 'blur(20px)' : 'none',
         }}
       >
-        <div className="container-custom">
+        <div className="container-wide">
           <nav className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="relative z-10 group">
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                className="flex items-baseline"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="flex items-baseline gap-3"
               >
-                <span className={`font-serif text-2xl md:text-[1.7rem] tracking-tight transition-colors duration-300 ${
-                  isScrolled || isMenuOpen || !isHomePage ? 'text-stone' : 'text-white'
-                }`}>
+                <span className="font-serif text-xl lg:text-2xl tracking-tight text-cream font-light">
                   Crotto
                 </span>
-                <span className={`font-serif text-2xl md:text-[1.7rem] italic ml-2 transition-colors duration-300 ${
-                  isScrolled || isMenuOpen || !isHomePage ? 'text-terracotta' : 'text-white/80'
-                }`}>
+                <span className="font-serif text-xl lg:text-2xl italic text-gold font-light">
                   Belvedere
                 </span>
               </motion.div>
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-10">
+            <div className="hidden lg:flex items-center gap-12">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.path}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  transition={{ duration: 0.6, delay: 0.1 + index * 0.05 }}
                 >
                   <NavLink
                     to={item.path}
                     className={({ isActive }) =>
-                      `nav-link text-[0.8rem] tracking-wide font-medium transition-colors duration-300 ${
-                        isScrolled || !isHomePage
-                          ? isActive ? 'text-stone' : 'text-stone/60 hover:text-stone'
-                          : isActive ? 'text-white' : 'text-white/70 hover:text-white'
+                      `nav-link transition-colors duration-300 ${
+                        isActive ? 'text-gold' : 'text-cream hover:text-gold'
                       }`
                     }
                   >
@@ -93,18 +90,15 @@ export default function Header() {
                   </NavLink>
                 </motion.div>
               ))}
+
               <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
               >
                 <a
                   href="tel:+390343335889"
-                  className={`text-[0.75rem] tracking-widest uppercase font-medium transition-all duration-300 px-6 py-3 border ${
-                    isScrolled || !isHomePage
-                      ? 'border-stone/20 text-stone hover:bg-stone hover:text-cream'
-                      : 'border-white/30 text-white hover:bg-white hover:text-stone'
-                  }`}
+                  className="btn-outline py-3 px-6"
                 >
                   Prenota
                 </a>
@@ -114,51 +108,75 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`lg:hidden relative z-[60] p-2 transition-colors ${
-                isScrolled || isMenuOpen || !isHomePage ? 'text-stone' : 'text-white'
-              }`}
+              className="lg:hidden relative z-[60] p-3 -mr-3"
               aria-label="Menu"
             >
-              <div className="w-6 h-5 relative flex flex-col justify-between">
-                <span className={`block h-0.5 w-full bg-current transition-all duration-300 origin-center ${
-                  isMenuOpen ? 'rotate-45 translate-y-[9px]' : ''
-                }`} />
-                <span className={`block h-0.5 w-full bg-current transition-all duration-300 ${
-                  isMenuOpen ? 'opacity-0 scale-0' : ''
-                }`} />
-                <span className={`block h-0.5 w-full bg-current transition-all duration-300 origin-center ${
-                  isMenuOpen ? '-rotate-45 -translate-y-[9px]' : ''
-                }`} />
+              <div className="w-7 h-5 relative flex flex-col justify-between">
+                <motion.span
+                  animate={{
+                    rotate: isMenuOpen ? 45 : 0,
+                    y: isMenuOpen ? 9 : 0,
+                  }}
+                  className="block h-px w-full bg-cream origin-center"
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.span
+                  animate={{
+                    opacity: isMenuOpen ? 0 : 1,
+                    scaleX: isMenuOpen ? 0 : 1,
+                  }}
+                  className="block h-px w-full bg-cream"
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.span
+                  animate={{
+                    rotate: isMenuOpen ? -45 : 0,
+                    y: isMenuOpen ? -9 : 0,
+                  }}
+                  className="block h-px w-full bg-cream origin-center"
+                  transition={{ duration: 0.3 }}
+                />
               </div>
             </button>
           </nav>
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Full screen cinematic */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden fixed inset-0 bg-cream z-50"
+            transition={{ duration: 0.5 }}
+            className="lg:hidden fixed inset-0 z-50 bg-black"
           >
-            <div className="h-full flex flex-col justify-center items-center gap-6 p-8">
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-1/4 -left-20 w-40 h-40 rounded-full bg-gold/5 blur-3xl" />
+              <div className="absolute bottom-1/4 -right-20 w-60 h-60 rounded-full bg-rust/5 blur-3xl" />
+            </div>
+
+            <div className="h-full flex flex-col justify-center items-center gap-2 p-8 relative z-10">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.path}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.1 + index * 0.08,
+                    ease: [0.16, 1, 0.3, 1]
+                  }}
+                  className="overflow-hidden"
                 >
                   <NavLink
                     to={item.path}
                     className={({ isActive }) =>
-                      `font-serif text-3xl md:text-4xl transition-colors duration-300 ${
-                        isActive ? 'text-terracotta' : 'text-stone/50 hover:text-stone'
+                      `block font-serif text-4xl md:text-5xl font-light transition-colors duration-300 py-3 ${
+                        isActive ? 'text-gold' : 'text-cream/60 hover:text-cream'
                       }`
                     }
                   >
@@ -166,14 +184,19 @@ export default function Header() {
                   </NavLink>
                 </motion.div>
               ))}
+
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.4, delay: 0.5 }}
-                className="mt-8"
+                transition={{
+                  duration: 0.5,
+                  delay: 0.6,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
+                className="mt-12"
               >
-                <a href="tel:+390343335889" className="btn-primary">
+                <a href="tel:+390343335889" className="btn-solid">
                   Prenota un tavolo
                 </a>
               </motion.div>
@@ -181,11 +204,11 @@ export default function Header() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute bottom-8 text-center text-sm text-stone/50"
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="absolute bottom-12 text-center"
               >
-                <p>Via alla Chiesa, 6 - Prosto di Piuro (SO)</p>
-                <p className="mt-1">+39 0343 33589</p>
+                <p className="text-cream/30 text-sm mb-2">Via alla Chiesa, 6</p>
+                <p className="text-cream/30 text-sm">Prosto di Piuro (SO)</p>
               </motion.div>
             </div>
           </motion.div>

@@ -1,242 +1,269 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import PageHero from '../components/PageHero'
+
+import esterni2 from '../assets/esterni/esterni-2.webp'
 
 export default function Contatti() {
   return (
-    <>
-      <PageHero
-        title="Contatti"
-        subtitle="Vieni a trovarci"
-      />
+    <div className="grain bg-dark">
+      {/* Hero - Minimal */}
+      <section className="relative min-h-[60vh] bg-black overflow-hidden flex items-end">
+        <div className="absolute inset-0">
+          <img src={esterni2} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-dark/50" />
+        </div>
 
-      {/* Contact Info */}
-      <section className="section-padding bg-cream">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Details */}
+        <div className="container-wide relative z-10 pb-16 lg:pb-24">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-eyebrow text-gold mb-6"
+          >
+            Vieni a trovarci
+          </motion.p>
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-hero text-cream"
+            >
+              Contatti
+            </motion.h1>
+          </div>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="mt-10 w-24 h-px bg-gradient-to-r from-gold to-transparent origin-left"
+          />
+        </div>
+      </section>
+
+      {/* Contact Grid */}
+      <section className="py-32 lg:py-48 bg-dark">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+            {/* Contact Methods */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 1 }}
             >
-              <p className="text-label text-terracotta mb-4">Contattaci</p>
-              <h2 className="heading-lg text-stone mb-6">
-                Come contattarci
+              <p className="text-eyebrow text-gold mb-8">Contattaci</p>
+              <h2 className="text-display text-cream mb-10">
+                Come<br />
+                <span className="italic text-cream/60">raggiungerci</span>
               </h2>
-              <div className="divider mb-8" />
-              <p className="text-body-lg text-stone/70 mb-10">
-                Per prenotazioni e informazioni, potete contattarci telefonicamente
-                o via email. Saremo lieti di rispondere a ogni vostra domanda.
-              </p>
+              <div className="w-16 h-px bg-gradient-to-r from-gold to-transparent mb-12" />
 
-              <div className="space-y-4">
+              <div className="space-y-8">
                 {/* Phone */}
                 <a
                   href="tel:+390343335889"
-                  className="flex items-start gap-5 p-6 bg-white hover:shadow-lg transition-all group"
+                  className="group flex items-start gap-6 p-8 bg-warm/50 hover:bg-warm transition-colors"
                 >
-                  <span className="w-12 h-12 bg-stone text-cream rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-terracotta transition-colors">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="w-14 h-14 bg-gold/10 text-gold rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-gold group-hover:text-dark transition-colors">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </span>
                   <div>
-                    <span className="block text-small text-stone/50 mb-1">Telefono Fisso</span>
-                    <span className="block text-xl font-serif text-stone">+39 0343 33589</span>
-                    <span className="block text-small text-stone/50 mt-1">Per prenotazioni e informazioni</span>
+                    <span className="block text-eyebrow text-cream/40 mb-2">Telefono</span>
+                    <span className="block text-2xl font-serif text-cream group-hover:text-gold transition-colors">
+                      +39 0343 33589
+                    </span>
+                    <span className="block text-cream/40 text-sm mt-2">Per prenotazioni</span>
                   </div>
                 </a>
 
                 {/* Mobile */}
                 <a
                   href="tel:+393477092022"
-                  className="flex items-start gap-5 p-6 bg-white hover:shadow-lg transition-all group"
+                  className="group flex items-start gap-6 p-8 bg-warm/50 hover:bg-warm transition-colors"
                 >
-                  <span className="w-12 h-12 bg-stone text-cream rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-terracotta transition-colors">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="w-14 h-14 bg-gold/10 text-gold rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-gold group-hover:text-dark transition-colors">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
                   </span>
                   <div>
-                    <span className="block text-small text-stone/50 mb-1">Cellulare (Marco)</span>
-                    <span className="block text-xl font-serif text-stone">+39 347 7092022</span>
-                    <span className="block text-small text-stone/50 mt-1">Per contatti diretti</span>
+                    <span className="block text-eyebrow text-cream/40 mb-2">Cellulare</span>
+                    <span className="block text-2xl font-serif text-cream group-hover:text-gold transition-colors">
+                      +39 347 7092022
+                    </span>
+                    <span className="block text-cream/40 text-sm mt-2">Contatto diretto</span>
                   </div>
                 </a>
 
                 {/* Email */}
                 <a
                   href="mailto:info@crottobelvedere.com"
-                  className="flex items-start gap-5 p-6 bg-white hover:shadow-lg transition-all group"
+                  className="group flex items-start gap-6 p-8 bg-warm/50 hover:bg-warm transition-colors"
                 >
-                  <span className="w-12 h-12 bg-stone text-cream rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-terracotta transition-colors">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="w-14 h-14 bg-gold/10 text-gold rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-gold group-hover:text-dark transition-colors">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </span>
                   <div>
-                    <span className="block text-small text-stone/50 mb-1">Email</span>
-                    <span className="block text-xl font-serif text-stone">info@crottobelvedere.com</span>
-                    <span className="block text-small text-stone/50 mt-1">Rispondiamo entro 24 ore</span>
+                    <span className="block text-eyebrow text-cream/40 mb-2">Email</span>
+                    <span className="block text-2xl font-serif text-cream group-hover:text-gold transition-colors">
+                      info@crottobelvedere.com
+                    </span>
+                    <span className="block text-cream/40 text-sm mt-2">Rispondiamo in 24 ore</span>
                   </div>
                 </a>
               </div>
             </motion.div>
 
-            {/* Reservation Info */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="bg-stone text-white p-10 mb-6">
-                <h3 className="heading-md mb-6">Prenotazioni</h3>
-                <p className="text-white/70 mb-8">
+            {/* Info Cards */}
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="bg-rust p-10 lg:p-14"
+              >
+                <h3 className="text-title text-white mb-8">Prenotazioni</h3>
+                <p className="text-white/70 mb-8 text-lg font-light leading-relaxed">
                   Vi consigliamo di prenotare, soprattutto nei weekend e durante le festività.
-                  Per gruppi numerosi, la prenotazione è obbligatoria.
                 </p>
                 <ul className="space-y-4 text-white/80">
                   {[
-                    'Prenotazione consigliata per pranzo e cena',
+                    'Consigliata per pranzo e cena',
                     'Obbligatoria per gruppi oltre 8 persone',
                     'Menu personalizzabili su richiesta',
-                    'Possibilità di sala privata per eventi'
+                    'Sala privata per eventi'
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="text-terracotta mt-1">✓</span>
-                      {item}
+                    <li key={i} className="flex items-start gap-4">
+                      <span className="text-white/40 text-eyebrow">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="font-light">{item}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
 
-              <div className="bg-white p-10">
-                <h3 className="heading-sm text-stone mb-4">Indirizzo</h3>
-                <p className="text-stone/70 mb-6">
-                  <strong className="text-stone">Crotto Belvedere</strong><br />
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="bg-warm p-10 lg:p-14"
+              >
+                <h3 className="text-title text-cream mb-6">Dove siamo</h3>
+                <p className="text-cream/60 text-lg font-light mb-8">
+                  <strong className="text-cream">Crotto Belvedere</strong><br />
                   Via alla Chiesa, 6<br />
-                  23020 Prosto di Piuro (SO)<br />
-                  Italia
+                  23020 Prosto di Piuro (SO)
                 </p>
-                <Link
-                  to="/dove-siamo"
-                  className="btn-ghost"
-                >
+                <Link to="/dove-siamo" className="btn-line text-cream">
                   Come raggiungerci
-                  <span className="ml-2">→</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </Link>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Special Events */}
-      <section className="section-padding bg-cream-dark">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-label text-terracotta mb-4">Eventi speciali</p>
-              <h2 className="heading-lg text-stone mb-6">Festività ed eventi</h2>
-              <div className="divider mx-auto mb-10" />
-              <p className="text-body-lg text-stone/70 mb-16">
-                Il Crotto Belvedere è il luogo ideale per celebrare le occasioni speciali:
-                pranzi di Natale, cenoni di Capodanno, compleanni e anniversari.
-              </p>
+      {/* Events */}
+      <section className="py-32 bg-black">
+        <div className="container-narrow text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-eyebrow text-gold mb-6">Eventi speciali</p>
+            <h2 className="text-display text-cream mb-16">
+              Festività ed<br />
+              <span className="italic text-cream/60">eventi</span>
+            </h2>
 
-              <div className="grid sm:grid-cols-3 gap-6">
-                {[
-                  { title: 'Natale', desc: 'Pranzi e cene delle feste' },
-                  { title: 'Capodanno', desc: 'Cenone di San Silvestro' },
-                  { title: 'Eventi Privati', desc: 'Compleanni e ricorrenze' },
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.1 }}
-                    className="p-8 bg-white"
-                  >
-                    <span className="text-label text-terracotta mb-3 block">0{i + 1}</span>
-                    <h3 className="heading-sm text-stone mb-2">{item.title}</h3>
-                    <p className="text-small text-stone/60">{item.desc}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+            <div className="grid sm:grid-cols-3 gap-6">
+              {[
+                { title: 'Natale', desc: 'Pranzi e cene delle feste' },
+                { title: 'Capodanno', desc: 'Cenone di San Silvestro' },
+                { title: 'Eventi Privati', desc: 'Compleanni e ricorrenze' },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="p-10 bg-warm/50 text-left"
+                >
+                  <span className="text-eyebrow text-gold mb-4 block">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="text-title text-cream mb-2">{item.title}</h3>
+                  <p className="text-cream/50 font-light">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Business Info */}
-      <section className="section-padding bg-cream">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-white p-10"
-            >
-              <h3 className="heading-sm text-stone mb-8">Dati aziendali</h3>
-              <div className="grid sm:grid-cols-2 gap-8 text-body text-stone/70">
-                <div>
-                  <span className="block text-stone font-medium mb-1">Ragione Sociale</span>
-                  Belvedere S.R.L.
-                </div>
-                <div>
-                  <span className="block text-stone font-medium mb-1">Partita IVA / C.F.</span>
-                  00730640141
-                </div>
-                <div>
-                  <span className="block text-stone font-medium mb-1">REA</span>
-                  SO – 55715
-                </div>
-                <div>
-                  <span className="block text-stone font-medium mb-1">Sede Legale</span>
-                  Via Nazionale 10, 23020 Piuro (SO)
-                </div>
-              </div>
-            </motion.div>
-          </div>
+      <section className="py-20 bg-dark border-t border-cream/5">
+        <div className="container-wide">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-cream/40"
+          >
+            <div>
+              <span className="text-eyebrow text-cream/20 mb-2 block">Ragione Sociale</span>
+              <p className="text-cream/60">Belvedere S.R.L.</p>
+            </div>
+            <div>
+              <span className="text-eyebrow text-cream/20 mb-2 block">Partita IVA</span>
+              <p className="text-cream/60">00730640141</p>
+            </div>
+            <div>
+              <span className="text-eyebrow text-cream/20 mb-2 block">REA</span>
+              <p className="text-cream/60">SO – 55715</p>
+            </div>
+            <div>
+              <span className="text-eyebrow text-cream/20 mb-2 block">Sede Legale</span>
+              <p className="text-cream/60">Via Nazionale 10, 23020 Piuro (SO)</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-wine text-white">
-        <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+      <section className="py-32 lg:py-48 bg-gold">
+        <div className="container-narrow text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-display text-dark mb-8">
+              Prenota<br />
+              <span className="italic">ora</span>
+            </h2>
+            <p className="text-body-lg text-dark/60 mb-12 max-w-lg mx-auto">
+              Ti aspettiamo al Crotto Belvedere per un'esperienza gastronomica indimenticabile.
+            </p>
+            <a
+              href="tel:+390343335889"
+              className="btn-solid bg-dark text-cream hover:bg-warm"
             >
-              <h2 className="heading-lg mb-6">Prenota ora</h2>
-              <p className="text-body-lg text-white/70 mb-10">
-                Ti aspettiamo al Crotto Belvedere per farti vivere
-                un'esperienza gastronomica indimenticabile.
-              </p>
-              <a
-                href="tel:+390343335889"
-                className="btn-primary bg-white text-wine hover:bg-cream"
-              >
-                Chiama +39 0343 33589
-              </a>
-            </motion.div>
-          </div>
+              Chiama +39 0343 33589
+            </a>
+          </motion.div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

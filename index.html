@@ -2,17 +2,156 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Crotto Belvedere - Ristorante tipico valtellinese a Prosto di Piuro. Pizzoccheri, sciatt, vini della Valtellina. Vi prende per la gola dal 1961." />
-    <meta name="keywords" content="crotto, belvedere, ristorante, valtellina, valchiavenna, pizzoccheri, sciatt, piuro, chiavenna" />
-    <title>Crotto Belvedere | Ristorante Tipico - Prosto di Piuro</title>
+
+    <!-- SEO Base -->
+    <title>Crotto Belvedere | Ristorante Tipico Valtellinese - Prosto di Piuro</title>
+    <meta name="description" content="Crotto Belvedere - Ristorante tipico valtellinese a Prosto di Piuro. Pizzoccheri, sciatt, polenta taragna e vini della Valtellina. Vi prende per la gola dal 1961." />
+    <meta name="keywords" content="crotto, belvedere, ristorante, valtellina, valchiavenna, pizzoccheri, sciatt, polenta taragna, piuro, chiavenna, ristorante tipico" />
+    <meta name="author" content="Crotto Belvedere" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.crottobelvedere.com" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Crotto Belvedere | Ristorante Tipico Valtellinese" />
-    <meta property="og:description" content="Vi prende per la gola! Cucina tradizionale della Valtellina a Prosto di Piuro. Pizzoccheri, sciatt, vini locali dal 1961." />
+    <meta property="og:description" content="Vi prende per la gola! Cucina tradizionale della Valtellina a Prosto di Piuro. Pizzoccheri, sciatt, polenta taragna e vini locali dal 1961." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.crottobelvedere.com" />
+    <meta property="og:image" content="https://www.crottobelvedere.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="it_IT" />
+    <meta property="og:site_name" content="Crotto Belvedere" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Crotto Belvedere | Ristorante Tipico Valtellinese" />
+    <meta name="twitter:description" content="Vi prende per la gola! Cucina tradizionale della Valtellina a Prosto di Piuro. Pizzoccheri, sciatt, polenta taragna dal 1961." />
+    <meta name="twitter:image" content="https://www.crottobelvedere.com/og-image.jpg" />
+
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="IT-SO" />
+    <meta name="geo.placename" content="Prosto di Piuro" />
+    <meta name="geo.position" content="46.3297;9.4261" />
+    <meta name="ICBM" content="46.3297, 9.4261" />
+
+    <!-- JSON-LD Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Crotto Belvedere",
+      "alternateName": "Crotto Belvedere Prosto di Piuro",
+      "description": "Ristorante tipico valtellinese a Prosto di Piuro. Pizzoccheri, sciatt, polenta taragna e vini della Valtellina dal 1961.",
+      "url": "https://www.crottobelvedere.com",
+      "telephone": "+39 0343 33589",
+      "email": "info@crottobelvedere.com",
+      "image": "https://www.crottobelvedere.com/og-image.jpg",
+      "logo": "https://www.crottobelvedere.com/logo.png",
+      "priceRange": "€€",
+      "servesCuisine": ["Italiana", "Valtellinese", "Lombarda", "Alpina"],
+      "acceptsReservations": "True",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via alla Chiesa, 6",
+        "addressLocality": "Prosto di Piuro",
+        "addressRegion": "SO",
+        "postalCode": "23020",
+        "addressCountry": "IT"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.3297,
+        "longitude": 9.4261
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "12:00",
+          "closes": "14:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "19:00",
+          "closes": "22:00"
+        }
+      ],
+      "sameAs": [],
+      "founder": {
+        "@type": "Organization",
+        "name": "Belvedere S.R.L."
+      },
+      "foundingDate": "1961",
+      "slogan": "Vi prende per la gola!",
+      "hasMenu": {
+        "@type": "Menu",
+        "hasMenuSection": [
+          {
+            "@type": "MenuSection",
+            "name": "Antipasti",
+            "hasMenuItem": [
+              {"@type": "MenuItem", "name": "Sciatt", "description": "Frittelle di grano saraceno ripiene di formaggio fuso"},
+              {"@type": "MenuItem", "name": "Bresaola della Valtellina IGP", "description": "Con rucola, grana e olio extravergine"},
+              {"@type": "MenuItem", "name": "Tagliere Valtellinese", "description": "Selezione di salumi e formaggi del territorio"}
+            ]
+          },
+          {
+            "@type": "MenuSection",
+            "name": "Primi Piatti",
+            "hasMenuItem": [
+              {"@type": "MenuItem", "name": "Pizzoccheri della Valtellina", "description": "Pasta di grano saraceno con verze, patate e formaggio"},
+              {"@type": "MenuItem", "name": "Polenta Taragna", "description": "Con abbondante formaggio fuso"},
+              {"@type": "MenuItem", "name": "Polenta Uncia", "description": "Condita con burro, aglio e formaggio locale"}
+            ]
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Local Business Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Crotto Belvedere",
+      "image": "https://www.crottobelvedere.com/og-image.jpg",
+      "@id": "https://www.crottobelvedere.com",
+      "url": "https://www.crottobelvedere.com",
+      "telephone": "+39 0343 33589",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via alla Chiesa, 6",
+        "addressLocality": "Prosto di Piuro",
+        "addressRegion": "SO",
+        "postalCode": "23020",
+        "addressCountry": "IT"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.3297,
+        "longitude": 9.4261
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "12:00",
+          "closes": "14:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "19:00",
+          "closes": "22:00"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

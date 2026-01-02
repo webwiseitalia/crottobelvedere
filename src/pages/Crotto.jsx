@@ -1,47 +1,60 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import PageHero from '../components/PageHero'
 
 // Import images
 import heroImg from '../assets/interni/interni-3.webp'
 import interni1 from '../assets/interni/interni-1.webp'
 import interni2 from '../assets/interni/interni-2.webp'
+import interni7 from '../assets/interni/interni-7.webp'
 import esterni3 from '../assets/esterni/esterni-3.webp'
+import esterni5 from '../assets/esterni/esterni-5.webp'
 
 export default function Crotto() {
+  const parallaxRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: parallaxRef,
+    offset: ["start end", "end start"]
+  })
+  const y = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"])
+
   return (
-    <>
+    <div className="grain bg-dark">
       <PageHero
         title="Il Crotto"
-        subtitle="La tradizione"
+        subtitle="Una cavità naturale nella roccia, un tesoro della tradizione valchiavennasca."
+        eyebrow="La tradizione"
         image={heroImg}
       />
 
       {/* What is a Crotto */}
-      <section className="section-padding bg-cream">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-32 lg:py-48 bg-dark relative overflow-hidden">
+        <div className="number-marker -left-10 top-20 text-cream/5">01</div>
+
+        <div className="container-wide">
+          <div className="grid-asymmetric items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 1 }}
             >
-              <p className="text-label text-terracotta mb-4">Cos'è un Crotto?</p>
-              <h2 className="heading-lg text-stone mb-6">
-                Una cavità naturale, un tesoro della tradizione
+              <p className="text-eyebrow text-gold mb-8">Cos'è un Crotto?</p>
+              <h2 className="text-display text-cream mb-10">
+                Una cavità<br />
+                <span className="italic text-cream/60">naturale</span>
               </h2>
-              <div className="divider mb-8" />
+              <div className="w-16 h-px bg-gradient-to-r from-gold to-transparent mb-10" />
 
-              <div className="space-y-6 text-body-lg text-stone/70">
+              <div className="space-y-6 text-body-lg text-cream/50">
                 <p>
-                  Il <strong className="text-stone">crotto</strong> è una costruzione tipica delle Alpi lombarde,
-                  in particolare della Valchiavenna e della Valtellina. Si tratta di una cavità naturale
-                  nella roccia, o di un ambiente costruito addossato alla montagna, da cui fuoriesce
-                  un soffio costante di aria fresca chiamato <em>"sorel"</em>.
+                  Il <strong className="text-cream">crotto</strong> è una costruzione tipica delle Alpi lombarde.
+                  Si tratta di una cavità naturale nella roccia da cui fuoriesce un soffio costante
+                  di aria fresca chiamato <em className="text-gold">"sorel"</em>.
                 </p>
                 <p>
-                  Questa corrente d'aria naturale, che mantiene una temperatura costante tra i 4 e gli 8 gradi
+                  Questa corrente d'aria, che mantiene una temperatura costante tra i 4 e gli 8 gradi
                   tutto l'anno, ha reso i crotti luoghi ideali per la conservazione dei cibi molto prima
                   dell'invenzione del frigorifero.
                 </p>
@@ -49,188 +62,191 @@ export default function Crotto() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="relative"
             >
-              <img
-                src={interni1}
-                alt="Le botti nella cantina del crotto"
-                className="w-full aspect-[4/3] object-cover"
-              />
+              <div className="img-cinematic aspect-[4/5]">
+                <img src={interni1} alt="Le botti nella cantina del crotto" />
+              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.4 }}
+                className="absolute -bottom-12 -left-12 w-2/3 aspect-square hidden lg:block"
+              >
+                <div className="img-cinematic h-full">
+                  <img src={interni7} alt="Dettaglio" />
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* History */}
-      <section className="section-padding bg-cream-dark">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-label text-terracotta mb-4">La storia</p>
-              <h2 className="heading-lg text-stone mb-6">
-                I Crotti della Valchiavenna
-              </h2>
-              <div className="divider mb-8" />
+      {/* History - Full width with parallax */}
+      <section ref={parallaxRef} className="relative min-h-screen bg-black overflow-hidden">
+        <motion.div style={{ y }} className="absolute inset-0">
+          <img src={esterni5} alt="Valchiavenna" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/50" />
+        </motion.div>
 
-              <div className="space-y-6 text-body-lg text-stone/70 leading-relaxed">
-                <p>
-                  La tradizione dei crotti in Valchiavenna risale a secoli fa, quando le comunità
-                  locali scoprirono le proprietà uniche di queste cavità naturali. Le rocce della
-                  zona, fratturate da antichi movimenti geologici, permettono all'aria di circolare
-                  creando microclimi perfetti per la conservazione degli alimenti.
-                </p>
-                <p>
-                  Ogni crotto ha la sua storia, le sue ricette, i suoi segreti tramandati di
-                  generazione in generazione. Il Crotto Belvedere custodisce questa eredità
-                  da oltre sessant'anni, offrendo ai suoi ospiti un'esperienza autentica
-                  che affonda le radici nella cultura locale.
-                </p>
-              </div>
-            </motion.div>
+        <div className="relative z-10 min-h-screen flex items-center py-32">
+          <div className="container-wide">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <p className="text-eyebrow text-gold mb-8">La storia</p>
+                <h2 className="text-display text-cream mb-10">
+                  I Crotti della<br />
+                  <span className="italic text-cream/60">Valchiavenna</span>
+                </h2>
+                <div className="w-16 h-px bg-gradient-to-r from-gold to-transparent mb-10" />
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-white p-10 lg:p-12"
-            >
-              <h3 className="heading-md text-stone mb-8">
-                Il Crotto Belvedere
-              </h3>
-              <div className="space-y-6">
-                {[
-                  { label: 'Dal 1961', desc: 'Oltre sessant\'anni di tradizione e ospitalità' },
-                  { label: 'Prosto di Piuro', desc: 'Nel cuore della Valchiavenna' },
-                  { label: 'Ambiente Naturale', desc: 'Circondato dalle Alpi e dal fiume Mera' },
-                  { label: 'Passione di Famiglia', desc: 'Gestione familiare con amore per la tradizione' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <span className="w-10 h-10 rounded-full bg-stone text-cream flex items-center justify-center text-sm font-medium flex-shrink-0">
-                      {i + 1}
-                    </span>
-                    <div>
-                      <p className="font-medium text-stone">{item.label}</p>
-                      <p className="text-small text-stone/60">{item.desc}</p>
+                <div className="space-y-6 text-body-lg text-cream/50 leading-relaxed">
+                  <p>
+                    La tradizione dei crotti in Valchiavenna risale a secoli fa. Le rocce della
+                    zona, fratturate da antichi movimenti geologici, permettono all'aria di circolare
+                    creando microclimi perfetti per la conservazione.
+                  </p>
+                  <p>
+                    Ogni crotto ha la sua storia, le sue ricette, i suoi segreti tramandati di
+                    generazione in generazione.
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="bg-warm/80 backdrop-blur-sm p-10 lg:p-14"
+              >
+                <h3 className="text-title text-cream mb-10">Il Crotto Belvedere</h3>
+                <div className="space-y-8">
+                  {[
+                    { label: 'Dal 1961', desc: 'Oltre sessant\'anni di tradizione' },
+                    { label: 'Prosto di Piuro', desc: 'Nel cuore della Valchiavenna' },
+                    { label: 'Ambiente Naturale', desc: 'Circondato dalle Alpi e dal fiume Mera' },
+                    { label: 'Passione di Famiglia', desc: 'Gestione familiare con amore' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-6 border-b border-cream/10 pb-6">
+                      <span className="text-gold text-eyebrow">{String(i + 1).padStart(2, '0')}</span>
+                      <div>
+                        <p className="text-cream font-serif text-xl">{item.label}</p>
+                        <p className="text-cream/50 font-light text-sm mt-1">{item.desc}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Image Gallery */}
-      <section className="bg-stone">
+      <section className="bg-dark">
         <div className="grid md:grid-cols-2">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
+            className="img-cinematic aspect-square md:aspect-auto"
           >
-            <img
-              src={interni2}
-              alt="Interno del crotto"
-              className="w-full h-full aspect-square md:aspect-auto object-cover"
-            />
+            <img src={interni2} alt="Interno del crotto" className="w-full h-full" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="img-cinematic aspect-square md:aspect-auto"
           >
-            <img
-              src={esterni3}
-              alt="Esterno del crotto"
-              className="w-full h-full aspect-square md:aspect-auto object-cover"
-            />
+            <img src={esterni3} alt="Esterno del crotto" className="w-full h-full" />
           </motion.div>
         </div>
       </section>
 
-      {/* Experience */}
-      <section className="section-padding bg-stone text-white">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-label text-terracotta mb-4">L'esperienza</p>
-              <h2 className="heading-lg mb-6">Più di un ristorante</h2>
-              <div className="divider mx-auto mb-10" />
+      {/* Experience Stats */}
+      <section className="py-32 lg:py-48 bg-warm">
+        <div className="container-narrow text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-eyebrow text-gold mb-6">L'esperienza</p>
+            <h2 className="text-display text-cream mb-10">
+              Più di un<br />
+              <span className="italic text-cream/60">ristorante</span>
+            </h2>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-16" />
 
-              <p className="text-body-lg text-white/70 leading-relaxed mb-16">
-                Venire al Crotto Belvedere significa vivere un'esperienza completa:
-                non solo gustare piatti eccellenti, ma immergersi nella cultura
-                e nelle tradizioni di un territorio unico.
-              </p>
+            <p className="text-body-lg text-cream/50 leading-relaxed mb-20 max-w-2xl mx-auto">
+              Venire al Crotto Belvedere significa vivere un'esperienza completa:
+              non solo gustare piatti eccellenti, ma immergersi nella cultura
+              e nelle tradizioni di un territorio unico.
+            </p>
 
-              <div className="grid sm:grid-cols-3 gap-12">
-                {[
-                  { value: '60+', label: 'Anni di storia' },
-                  { value: '100%', label: 'Tradizione locale' },
-                  { value: '∞', label: 'Passione' },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                  >
-                    <p className="font-serif text-5xl text-gold mb-2">{stat.value}</p>
-                    <p className="text-white/60">{stat.label}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+            <div className="grid sm:grid-cols-3 gap-12 lg:gap-20">
+              {[
+                { value: '60+', label: 'Anni di storia' },
+                { value: '100%', label: 'Tradizione locale' },
+                { value: '∞', label: 'Passione' },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                >
+                  <p className="font-serif text-6xl lg:text-7xl text-gold mb-4 font-light">{stat.value}</p>
+                  <p className="text-cream/40 text-eyebrow">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-cream">
-        <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="heading-lg text-stone mb-6">
-                Vieni a scoprire il crotto
-              </h2>
-              <p className="text-body-lg text-stone/70 mb-10">
-                Ti aspettiamo per farti vivere l'atmosfera unica del nostro crotto
-                e per farti assaporare i piatti della nostra tradizione.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/cucina" className="btn-primary">
-                  Scopri la cucina
-                </Link>
-                <Link to="/contatti" className="btn-secondary">
-                  Contattaci
-                </Link>
-              </div>
-            </motion.div>
-          </div>
+      <section className="py-32 lg:py-48 bg-dark">
+        <div className="container-narrow text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-display text-cream mb-8">
+              Vieni a scoprire<br />
+              <span className="italic text-cream/60">il crotto</span>
+            </h2>
+            <p className="text-body-lg text-cream/50 mb-12 max-w-lg mx-auto">
+              Ti aspettiamo per farti vivere l'atmosfera unica
+              e per farti assaporare i piatti della nostra tradizione.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/cucina" className="btn-solid">
+                Scopri la cucina
+              </Link>
+              <Link to="/contatti" className="btn-outline">
+                Contattaci
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

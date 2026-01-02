@@ -1,71 +1,89 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 
-export default function PageHero({ title, subtitle, image, dark = true }) {
+export default function PageHero({ title, subtitle, eyebrow, image }) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+
   return (
-    <section className={`relative ${image ? 'min-h-[60vh]' : 'pt-32 pb-20 md:pt-40 md:pb-28'} ${dark ? 'bg-stone' : 'bg-cream'} overflow-hidden`}>
-      {/* Background Image */}
+    <section ref={ref} className="relative h-[70vh] lg:h-[80vh] overflow-hidden bg-black">
+      {/* Background Image with Parallax */}
       {image && (
-        <>
-          <div className="absolute inset-0">
-            <img
-              src={image}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone/90 via-stone/50 to-stone/30" />
-          </div>
-          <div className="relative z-10 min-h-[60vh] flex items-end pb-16 md:pb-24">
-            <div className="container-custom">
-              <div className="max-w-3xl">
-                {subtitle && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-label text-white/60 mb-4"
-                  >
-                    {subtitle}
-                  </motion.p>
-                )}
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="heading-xl text-white"
-                >
-                  {title}
-                </motion.h1>
-              </div>
-            </div>
-          </div>
-        </>
+        <motion.div
+          style={{ y, scale }}
+          className="absolute inset-0"
+        >
+          <img
+            src={image}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
+        </motion.div>
       )}
 
-      {/* Without Image */}
-      {!image && (
-        <div className="container-custom">
-          <div className="max-w-3xl">
-            {subtitle && (
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className={`text-label mb-4 ${dark ? 'text-terracotta' : 'text-terracotta'}`}
-              >
-                {subtitle}
-              </motion.p>
-            )}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+      {/* Content */}
+      <motion.div
+        style={{ opacity }}
+        className="relative z-10 h-full flex items-end"
+      >
+        <div className="container-wide pb-16 lg:pb-24">
+          {/* Eyebrow */}
+          {eyebrow && (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className={`heading-xl ${dark ? 'text-white' : 'text-stone'}`}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-eyebrow text-gold mb-6"
+            >
+              {eyebrow}
+            </motion.p>
+          )}
+
+          {/* Title with stagger */}
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-hero text-cream"
             >
               {title}
             </motion.h1>
           </div>
+
+          {/* Subtitle */}
+          {subtitle && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="mt-6 text-xl lg:text-2xl text-cream/60 font-light max-w-2xl"
+            >
+              {subtitle}
+            </motion.p>
+          )}
+
+          {/* Decorative line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 1.1 }}
+            className="mt-10 w-24 h-px bg-gradient-to-r from-gold to-transparent origin-left"
+          />
         </div>
-      )}
+      </motion.div>
+
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent" />
     </section>
   )
 }
